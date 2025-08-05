@@ -18,9 +18,9 @@ git push origin main
 4. Configure project settings:
    - Framework Preset: Other
    - Root Directory: ./
-   - Build Command: (để trống)
+   - Build Command: yarn build
    - Output Directory: (để trống)
-   - Install Command: npm install
+   - Install Command: yarn install
 
 ### Bước 3: Cấu hình Environment Variables
 Trong Vercel Dashboard, thêm các environment variables:
@@ -36,8 +36,8 @@ Trong Vercel Dashboard, thêm các environment variables:
 
 ## Local Development
 ```bash
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 Server sẽ chạy tại http://localhost:3001
