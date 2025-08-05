@@ -1,8 +1,8 @@
 node_modules
 .env
 .DS_Store
-*.log
+.log
 .vscode
 .git
 package-lock.json
-npm-debug.log*
+npm-debug.log
