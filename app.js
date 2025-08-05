@@ -36,7 +36,7 @@ const authRoutes = require("./routes/auth");
 const registerRoutes = require("./routes/register");
 
 // Test endpoint
-app.get("/api/test", (req, res) => {
+app.get("/api/test", (_req, res) => {
   res.json({
     message: "API đang hoạt động!",
     timestamp: new Date().toISOString(),
