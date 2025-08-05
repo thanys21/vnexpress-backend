@@ -12,11 +12,6 @@
       "dest": "/api/index.js"
     }
   ],
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 30
-    }
-  },
   "installCommand": "yarn install",
   "buildCommand": "yarn build"
 }
