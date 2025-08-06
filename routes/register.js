@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/user");
 
 // POST /api/auth/register - Đăng ký tài khoản mới
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 

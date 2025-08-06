@@ -46,7 +46,7 @@ app.get("/api/test", (_req, res) => {
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/auth/login", authRoutes);
-app.use("/api/auth/register", registerRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/auth", registerRoutes);
 
 module.exports = app;
