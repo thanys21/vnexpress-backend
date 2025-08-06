@@ -43,6 +43,15 @@ app.get("/api/test", (_req, res) => {
   });
 });
 
+// Test auth endpoint
+app.post("/api/auth/test", (req, res) => {
+  res.json({
+    message: "Auth route working",
+    body: req.body,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
