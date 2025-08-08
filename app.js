@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+
 // CORS configuration
 app.use(
   cors({
@@ -11,6 +12,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:3001",
       "https://vnexpress-chi.vercel.app",
+      "https://vnexpress.vercel.app",
     ],
     credentials: true,
     optionsSuccessStatus: 200,
@@ -21,6 +23,28 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "VnExpress Backend API",
+    status: "running",
+    endpoints: {
+      auth: "/api/auth/login",
+      users: "/api/users",
+      posts: "/api/posts",
+    },
+  });
+});
+
+// Health check
+app.get("/api", (req, res) => {
+  res.json({
+    message: "VnExpress API is running",
+    status: "ok",
+    timestamp: new Date().toISOString(),
+  });
+});
 
 // Kết nối MongoDB
 mongoose
