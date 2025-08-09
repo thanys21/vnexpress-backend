@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const User = require("../models/user");
 
@@ -30,8 +31,16 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Try to find user in database first
-    let user = await User.findOne({ email });
+    // Try to find user in database first (only if MongoDB is connected)
+    let user = null;
+    
+    try {
+      if (mongoose.connection.readyState === 1) {
+        user = await User.findOne({ email });
+      }
+    } catch (dbError) {
+      console.log("Database query failed, using mock data only:", dbError.message);
+    }
 
     // If not found in database, check mock users
     if (!user) {
