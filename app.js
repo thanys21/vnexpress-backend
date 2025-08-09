@@ -18,28 +18,55 @@ app.use(
         "http://localhost:5173",
         "https://vnexpress-chi.vercel.app",
         "https://vnexpress.vercel.app",
+        "https://localhost:3000"
       ];
       
-      // In development, allow all origins
-      if (process.env.NODE_ENV === "development") {
+      // In development or if NODE_ENV is not set, allow all origins
+      if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
         return callback(null, true);
       }
       
+      // Check if origin is in allowed list
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
       
+      // For production, be more strict but log the rejected origin
+      console.log("CORS rejected origin:", origin);
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
     optionsSuccessStatus: 200,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: [
+      "Content-Type", 
+      "Authorization", 
+      "X-Requested-With",
+      "Accept",
+      "Origin"
+    ],
+    exposedHeaders: ["Authorization"],
+    preflightContinue: false
   })
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Handle preflight requests explicitly
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS,PATCH");
+  res.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Accept,Origin");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.status(200).end();
+});
+
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.headers.origin}`);
+  next();
+});
 
 // Root route
 app.get("/", (req, res) => {
