@@ -1,6 +1,16 @@
+# Node.js dependencies
 node_modules/
+
+# Environment variables
 .env
-.DS_Store
-*.log
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Build files
 dist/
 build/
+
+# Yarn lock file (optional, if not needed in version control)
+yarn.lock
