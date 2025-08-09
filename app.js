@@ -89,4 +89,22 @@ app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", registerRoutes);
 
+// 404 handler
+app.use("*", (req, res) => {
+  res.status(404).json({
+    message: "Route not found",
+    success: false,
+  });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Global error:", err);
+  res.status(500).json({
+    message: "Internal server error",
+    success: false,
+    error: process.env.NODE_ENV === "development" ? err.message : undefined,
+  });
+});
+
 module.exports = app;
